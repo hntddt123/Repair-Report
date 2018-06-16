@@ -12,7 +12,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     var cellArray = ["1st report","2nd report","3rd report"]
     var cellDetailArray = ["6/12","6/13","6/14"]
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cellArray.count
     }
@@ -21,12 +21,12 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let cell = tableView.dequeueReusableCell(withIdentifier: "WorkCell", for: indexPath)
         cell.textLabel?.text = cellArray[indexPath.row]
         cell.detailTextLabel?.text = cellDetailArray[indexPath.row  ]
-
+        
         
         return cell
     }
     
-
+    
     @IBOutlet weak var ReportTableView: UITableView!
     
     override func viewDidLoad() {
@@ -34,12 +34,12 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         ReportTableView.delegate = self
         ReportTableView.dataSource = self
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    
 }
 
