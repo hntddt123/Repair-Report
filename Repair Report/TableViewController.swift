@@ -10,6 +10,7 @@ import UIKit
 
 class TableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var ReportTableView: UITableView!
     var cellArray = ["1st report","2nd report","3rd report"]
     var cellDetailArray = ["6/12","6/13","6/14"]
     
@@ -20,14 +21,18 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WorkCell", for: indexPath)
         cell.textLabel?.text = cellArray[indexPath.row]
-        cell.detailTextLabel?.text = cellDetailArray[indexPath.row  ]
+        cell.detailTextLabel?.text = cellDetailArray[indexPath.row]
+        
         
         
         return cell
     }
     
-    
-    @IBOutlet weak var ReportTableView: UITableView!
+    @IBAction func RequestForm(_ sender: UIBarButtonItem) {
+        //TODO: Add Form to fill
+        
+        print("Add new form")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
