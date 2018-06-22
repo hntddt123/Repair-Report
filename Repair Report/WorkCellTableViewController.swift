@@ -12,10 +12,9 @@ var cellArray = ["1st report","2nd report","3rd report"]
 var cellDetailArray = ["6/12","6/13","6/14"]
 
 class WorkCellTableViewController: UITableViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -31,6 +30,16 @@ class WorkCellTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
+    @IBAction func addNewForm(_ sender: UIBarButtonItem) {
+        cellArray.append("New Cell")
+        cellDetailArray.append("Current date")
+        print("We have \(cellArray.count) cells")
+        tableView.beginUpdates()
+        tableView.insertRows(at: [IndexPath(row: cellArray.count-1, section: 0)], with: .automatic)
+        tableView.endUpdates()
+
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -45,8 +54,12 @@ class WorkCellTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reportCell", for: indexPath)
         cell.textLabel?.text = cellArray[indexPath.row]
         cell.detailTextLabel?.text = cellDetailArray[indexPath.row]
+
         return cell
     }
+    
+    
+    
 
     /*
     // Override to support conditional editing of the table view.
@@ -56,7 +69,7 @@ class WorkCellTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -66,7 +79,7 @@ class WorkCellTableViewController: UITableViewController {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+    
 
     /*
     // Override to support rearranging the table view.

@@ -1,5 +1,5 @@
 //
-//  NewFormViewController.swift
+//  FormDetailViewController.swift
 //  Repair Report
 //
 //  Created by Nientai Ho on 2018/6/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewFormViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class FormDetailViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     @IBOutlet weak var applicant: UITextField!
     @IBOutlet weak var fillDate: UITextField!
     @IBOutlet weak var equipmentName: UITextField!
@@ -44,8 +44,9 @@ class NewFormViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         //TODO: Add new cell with inputText
         let cellName = applicant.text
         cellArray.append(cellName!)
-        print(cellArray)
         
+        print(cellArray)
+        presentingViewController?.dismiss(animated: true)
     }
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
