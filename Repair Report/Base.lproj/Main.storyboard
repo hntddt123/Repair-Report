@@ -79,11 +79,7 @@
                                 <color key="barTintColor" red="0.96647370769999996" green="1" blue="0.87615786169999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <items>
                                     <navigationItem title="New Form" id="z9n-NV-w4U">
-                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="2Xl-jl-7Zw">
-                                            <connections>
-                                                <action selector="done:" destination="Gwv-Wc-DzZ" id="HVn-sj-cJh"/>
-                                            </connections>
-                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="2Xl-jl-7Zw"/>
                                     </navigationItem>
                                 </items>
                             </navigationBar>

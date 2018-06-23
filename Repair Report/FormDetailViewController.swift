@@ -40,17 +40,4 @@ class FormDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
         equipmentNamePicker.delegate = self
     }
     
-    @IBAction func done(_ sender: UIBarButtonItem) {
-        //TODO: Add new cell with inputText
-        let cellName = applicant.text
-        cellArray.append(cellName!)
-        
-        print(cellArray)
-        presentingViewController?.dismiss(animated: true)
-    }
-    
-    @IBAction func cancel(_ sender: UIBarButtonItem) {
-        presentingViewController?.dismiss(animated: true)
-    }
-    
 }

@@ -8,11 +8,12 @@
 
 import UIKit
 
-var cellArray = ["1st report","2nd report","3rd report"]
-var cellDetailArray = ["6/12","6/13","6/14"]
 
 class WorkCellTableViewController: UITableViewController {
-    
+   
+    var cellArrayName = ["Report 1","Report 2","Report 3"]
+    var cellDetailArrayName = ["2018/6/12","2018/6/13","2018/6/14"]
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,14 +30,34 @@ class WorkCellTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
+   
+    
     @IBAction func addNewForm(_ sender: UIBarButtonItem) {
-        cellArray.append("New Cell")
-        cellDetailArray.append("Current date")
-        print("We have \(cellArray.count) cells")
-        tableView.beginUpdates()
-        tableView.insertRows(at: [IndexPath(row: cellArray.count-1, section: 0)], with: .automatic)
-        tableView.endUpdates()
+        
+        let alert = UIAlertController(title: "New Report", message: "Enter report name", preferredStyle: .alert)
+        
+        alert.addTextField(configurationHandler: { (textField) in
+            textField.placeholder = "Name"
+        })
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+            //Date format for new entry
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy/MM/dd"
+            let date = Date()
+            let dateString = dateFormatter.string(from: date)
+            //Append data to array
+            //cellArrayName.append("Report")
+            let name = (alert.textFields?.first?.text)!
+            self.cellArrayName.append(name)
+            self.cellDetailArrayName.append("\(dateString)")
+            self.tableView.beginUpdates()
+            self.tableView.insertRows(at: [IndexPath(row: self.cellArrayName.count-1, section: 0)], with: .automatic)
+            self.tableView.endUpdates()
+        }))
+        self.present(alert, animated: true, completion: nil)
+        
+        
+        
 
     }
     
@@ -47,13 +68,13 @@ class WorkCellTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        return cellArray.count
+        return cellArrayName.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reportCell", for: indexPath)
-        cell.textLabel?.text = cellArray[indexPath.row]
-        cell.detailTextLabel?.text = cellDetailArray[indexPath.row]
+        cell.textLabel?.text = cellArrayName[indexPath.row]
+        cell.detailTextLabel?.text = cellDetailArrayName[indexPath.row]
 
         return cell
     }
