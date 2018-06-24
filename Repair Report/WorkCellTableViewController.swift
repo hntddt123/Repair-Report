@@ -39,6 +39,9 @@ class WorkCellTableViewController: UITableViewController {
         alert.addTextField(configurationHandler: { (textField) in
             textField.placeholder = "Name"
         })
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: " Default action"), style: .cancel , handler: { _ in
+            //Cancel Action
+        }))
         alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
             //Date format for new entry
             let dateFormatter = DateFormatter()
