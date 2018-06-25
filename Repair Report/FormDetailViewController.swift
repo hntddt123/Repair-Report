@@ -36,11 +36,13 @@ class FormDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         applicant.setBottomBorder()
         fillDate.setBottomBorder()
         equipmentName.setBottomBorder()
         equipmentSerialNumber.setBottomBorder()
         propertyNumber.setBottomBorder()
+        eventDescription.layer.borderWidth = 1.0
         
         equipmentName.inputView = equipmentNamePicker
         equipmentNamePicker.delegate = self
