@@ -170,12 +170,18 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="YRq-NE-uCt" firstAttribute="top" secondItem="wQS-1m-yjZ" secondAttribute="bottom" constant="8" id="11C-3r-CqT"/>
+                                            <constraint firstItem="YRq-NE-uCt" firstAttribute="leading" secondItem="cxk-Om-J63" secondAttribute="leading" id="Gr9-VR-5tW"/>
+                                            <constraint firstAttribute="trailing" secondItem="YRq-NE-uCt" secondAttribute="trailing" constant="22" id="Vn5-Ww-lGw"/>
+                                            <constraint firstAttribute="bottom" secondItem="YRq-NE-uCt" secondAttribute="bottom" id="waR-4o-9OF"/>
+                                        </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="UtE-HI-q5n">
                                         <rect key="frame" x="0.0" y="374" width="240" height="166"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="故障原因描述🔧" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uva-HF-XNC">
-                                                <rect key="frame" x="0.0" y="0.0" width="180" height="30"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="故障描述🔧" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uva-HF-XNC">
+                                                <rect key="frame" x="0.0" y="0.0" width="129.33333333333334" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -189,22 +195,54 @@
                                             </textView>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstItem="gdj-87-7yS" firstAttribute="leading" secondItem="UtE-HI-q5n" secondAttribute="leading" id="8XS-D1-Rnq"/>
+                                            <constraint firstItem="gdj-87-7yS" firstAttribute="top" secondItem="Uva-HF-XNC" secondAttribute="bottom" constant="8" id="F3O-JO-8Fx"/>
                                             <constraint firstAttribute="trailing" secondItem="gdj-87-7yS" secondAttribute="trailing" id="MaJ-nd-19C"/>
+                                            <constraint firstAttribute="bottom" secondItem="gdj-87-7yS" secondAttribute="bottom" id="dSd-Tq-gNV"/>
+                                            <constraint firstAttribute="trailing" secondItem="gdj-87-7yS" secondAttribute="trailing" id="wgq-0l-Laz"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="Kcz-RS-lME" firstAttribute="top" secondItem="8NB-f6-Kts" secondAttribute="bottom" constant="8" id="4jR-1O-OqL"/>
+                                    <constraint firstItem="8NB-f6-Kts" firstAttribute="top" secondItem="csB-xG-Dcy" secondAttribute="bottom" constant="8" id="5sj-X6-Mp9"/>
+                                    <constraint firstItem="Kcz-RS-lME" firstAttribute="top" secondItem="8NB-f6-Kts" secondAttribute="bottom" constant="8" id="9Kq-Gn-SYl"/>
+                                    <constraint firstAttribute="trailing" secondItem="5nJ-Ms-R2T" secondAttribute="trailing" constant="110.67" id="AGJ-z5-QDD"/>
+                                    <constraint firstItem="5nJ-Ms-R2T" firstAttribute="leading" secondItem="aF2-eL-rXU" secondAttribute="leading" id="B4y-gg-M8F"/>
                                     <constraint firstAttribute="trailing" secondItem="UtE-HI-q5n" secondAttribute="trailing" id="CA1-B1-1Dj"/>
+                                    <constraint firstItem="csB-xG-Dcy" firstAttribute="leading" secondItem="aF2-eL-rXU" secondAttribute="leading" id="CTM-5B-FuJ"/>
+                                    <constraint firstItem="cxk-Om-J63" firstAttribute="top" secondItem="5nJ-Ms-R2T" secondAttribute="bottom" constant="8" id="EfZ-8u-zvA"/>
+                                    <constraint firstAttribute="trailing" secondItem="8NB-f6-Kts" secondAttribute="trailing" constant="111" id="GfF-WB-O0M"/>
+                                    <constraint firstItem="csB-xG-Dcy" firstAttribute="top" secondItem="aF2-eL-rXU" secondAttribute="top" id="K8d-UC-DSt"/>
+                                    <constraint firstItem="Kcz-RS-lME" firstAttribute="leading" secondItem="aF2-eL-rXU" secondAttribute="leading" id="NRC-Yn-DyE"/>
+                                    <constraint firstAttribute="trailing" secondItem="Kcz-RS-lME" secondAttribute="trailing" constant="110.67" id="b7U-uS-iby"/>
+                                    <constraint firstItem="5nJ-Ms-R2T" firstAttribute="top" secondItem="Kcz-RS-lME" secondAttribute="bottom" constant="8" id="cB9-Cd-50T"/>
+                                    <constraint firstAttribute="trailing" secondItem="csB-xG-Dcy" secondAttribute="trailing" constant="140" id="cY5-9D-ENQ"/>
+                                    <constraint firstItem="8NB-f6-Kts" firstAttribute="top" secondItem="csB-xG-Dcy" secondAttribute="bottom" constant="8" id="gKZ-pe-kGn"/>
+                                    <constraint firstItem="5nJ-Ms-R2T" firstAttribute="top" secondItem="Kcz-RS-lME" secondAttribute="bottom" constant="8" id="hb1-8o-CIt"/>
+                                    <constraint firstItem="8NB-f6-Kts" firstAttribute="leading" secondItem="aF2-eL-rXU" secondAttribute="leading" id="ses-yp-uXK"/>
                                 </constraints>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cph-u1-DXh">
+                                <rect key="frame" x="161" y="737" width="52" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="saveReport:" destination="Gwv-Wc-DzZ" eventType="touchUpInside" id="MWC-bI-bW0"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Cph-u1-DXh" firstAttribute="leading" secondItem="B5e-F1-vSx" secondAttribute="leading" constant="161" id="3Mq-Sy-lx4"/>
+                            <constraint firstItem="B5e-F1-vSx" firstAttribute="trailing" secondItem="Cph-u1-DXh" secondAttribute="trailing" constant="162" id="3Rf-91-PDS"/>
                             <constraint firstItem="aF2-eL-rXU" firstAttribute="top" secondItem="YvP-sk-Bki" secondAttribute="bottom" constant="31" id="6zK-mQ-wep"/>
                             <constraint firstItem="B5e-F1-vSx" firstAttribute="trailing" secondItem="aF2-eL-rXU" secondAttribute="trailing" constant="119" id="9aE-M4-JtT"/>
                             <constraint firstAttribute="trailing" secondItem="YvP-sk-Bki" secondAttribute="trailing" id="CvQ-tT-B0y"/>
                             <constraint firstItem="aF2-eL-rXU" firstAttribute="leading" secondItem="B1N-uC-fCx" secondAttribute="leadingMargin" id="FZB-l0-oH7"/>
                             <constraint firstItem="YvP-sk-Bki" firstAttribute="leading" secondItem="B1N-uC-fCx" secondAttribute="leading" id="OIB-NW-zCJ"/>
+                            <constraint firstItem="Cph-u1-DXh" firstAttribute="top" secondItem="aF2-eL-rXU" secondAttribute="bottom" constant="78" id="PMQ-3u-yWQ"/>
+                            <constraint firstItem="Cph-u1-DXh" firstAttribute="bottom" secondItem="B5e-F1-vSx" secondAttribute="bottom" id="SNO-tu-lWA"/>
                             <constraint firstItem="B5e-F1-vSx" firstAttribute="bottom" secondItem="aF2-eL-rXU" secondAttribute="bottom" constant="119" id="Xq3-Bi-QmM"/>
                             <constraint firstItem="YvP-sk-Bki" firstAttribute="bottom" secondItem="B5e-F1-vSx" secondAttribute="top" id="bQ3-8q-DpK"/>
                         </constraints>

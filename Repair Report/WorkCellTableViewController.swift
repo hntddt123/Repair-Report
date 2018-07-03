@@ -12,28 +12,22 @@ import UIKit
 class WorkCellTableViewController: UITableViewController {
    
     var cellArrayName = ["Report 1","Report 2","Report 3"]
-    var cellDetailArrayName = ["2018/6/12","2018/6/13","2018/6/14"]
+    var cellDetailArrayName = ["2018/06/12","2018/06/13","2018/06/14"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        
         // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
    
-    
     @IBAction func addNewForm(_ sender: UIBarButtonItem) {
-        
         let alert = UIAlertController(title: "New Report", message: "Enter report name", preferredStyle: .alert)
         
         alert.addTextField(configurationHandler: { (textField) in
@@ -58,10 +52,6 @@ class WorkCellTableViewController: UITableViewController {
             self.tableView.endUpdates()
         }))
         self.present(alert, animated: true, completion: nil)
-        
-        
-        
-
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -75,7 +65,7 @@ class WorkCellTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Servers"
+        return "Not Repaired"
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
