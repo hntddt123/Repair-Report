@@ -18,6 +18,28 @@ class WorkCellTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        //Managed object context reference
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
+            else {
+                return
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        //Fetch settings from Report Entity
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Report")
+        
+        //Fetch to reports
+        do {
+            reports = try managedContext.fetch(fetchRequest)
+        } catch
+            let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -106,16 +128,29 @@ class WorkCellTableViewController: UITableViewController {
         return cell
     }
     
-//    private func updateDatabase(with report: [String]) {
-//        container?.performBackgroundTask({ (context) in
-//            for name in self.cellArrayName {
-//                //add name
-//                let request = NSFetchRequest<NSManagedObject>(entityName: "title")
-//
-//            }
-//        })
-//    }
-    
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
+                else {
+                    return
+            }
+            //NSObject context
+            let managedContext = appDelegate.persistentContainer.viewContext
+            managedContext.delete(reports[indexPath.row])
+            self.reports.remove(at: indexPath.row)
+            //NSObject context
+            //save
+            do {
+                try managedContext.save()
+            } catch let error as NSError {
+                print("Could not save. \(error), \(error.userInfo)")
+            }
+
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
     
 
     /*
@@ -126,17 +161,9 @@ class WorkCellTableViewController: UITableViewController {
     }
     */
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
+    
+
+    
 
     /*
     // Override to support rearranging the table view.
