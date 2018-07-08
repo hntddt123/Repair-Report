@@ -46,7 +46,7 @@ class WorkCellTableViewController: UITableViewController {
         
         // Dispose of any resources that can be recreated.
     }
-
+    
     // MARK: - Table view data source
    
     @IBAction func addNewForm(_ sender: UIBarButtonItem) {
@@ -160,10 +160,6 @@ class WorkCellTableViewController: UITableViewController {
         return true
     }
     */
-
-    
-
-    
 
     /*
     // Override to support rearranging the table view.

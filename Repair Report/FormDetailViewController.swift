@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class FormDetailViewController: UIViewController {
    
@@ -16,9 +17,94 @@ class FormDetailViewController: UIViewController {
     @IBOutlet weak var equipmentSerialNumber: UITextField!
     @IBOutlet weak var propertyNumber: UITextField!
     @IBOutlet weak var eventDescription: UITextView!
+    var reportDetails: [NSManagedObject] = []
+    
     
     @IBAction func saveReport(_ sender: UIButton) {
+        // TODO: Save ReportDetail
+        let applicantToSave = applicant.text!
+        let fillDateToSave = fillDate.text!
+        let equipmentNameToSave = equipmentName.text!
+        let equipmentSerialNumberToSave = equipmentSerialNumber.text!
+        let propertyNumberToSave = propertyNumber.text!
+        let eventDescriptionToSave =  eventDescription.text!
         
+        //Save text to Core Data ReportDetail
+        save(with: applicantToSave,
+             with: fillDateToSave,
+             with: equipmentNameToSave,
+             with: equipmentSerialNumberToSave,
+             with: propertyNumberToSave,
+             with: eventDescriptionToSave)
+
+    }
+    
+    func save(with applicant: String,
+              with date: String,
+              with equipmentName: String,
+              with equipmentSerialNumber: String,
+              with propertyNumber: String,
+              with eventDescription: String) {
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
+            else {
+                return
+        }
+        
+        //NSObject context
+        let managedContext = appDelegate.persistentContainer.viewContext
+        //Insert to NSManagedObject
+        let entity = NSEntityDescription.entity(forEntityName: "ReportDetail",
+                                                in: managedContext)!
+        let reportDetail = NSManagedObject(entity: entity,
+                                     insertInto: managedContext)
+        
+        //key-value coding
+        reportDetail.setValue(applicant, forKeyPath: "applicantName")
+        reportDetail.setValue(date, forKeyPath: "fillDate")
+        reportDetail.setValue(equipmentName, forKeyPath: "equipmentName")
+        reportDetail.setValue(equipmentSerialNumber, forKeyPath: "equipmentSerialNumber")
+        reportDetail.setValue(propertyNumber, forKeyPath: "propertyNumber")
+        reportDetail.setValue(eventDescription, forKeyPath: "eventDescription")
+        
+        //save to reportDetail Data
+        do {
+            try managedContext.save()
+            //reportDetails.append(reportDetail)
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        //Managed object context reference
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
+            else {
+                return
+        }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        //Fetch settings from ReportDetail Entity
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ReportDetail")
+        
+        //Fetch to reportDetails
+        do {
+            reportDetails = try managedContext.fetch(fetchRequest)
+            for text in reportDetails as [NSManagedObject] {
+                applicant.text = text.value(forKey: "applicantName") as? String
+                fillDate.text = text.value(forKey: "fillDate") as? String
+                equipmentName.text = text.value(forKey: "equipmentName") as? String
+                equipmentSerialNumber.text = text.value(forKey: "equipmentSerialNumber") as? String
+                propertyNumber.text = text.value(forKey: "propertyNumber") as? String
+                eventDescription.text = text.value(forKey: "eventDescription") as? String
+            }
+        } catch
+            let error as NSError {
+                print("Could not fetch. \(error), \(error.userInfo)")
+        }
     }
     
     override func viewDidLoad() {
