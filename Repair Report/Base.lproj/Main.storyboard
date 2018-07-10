@@ -45,7 +45,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="Gwv-Wc-DzZ" kind="show" id="irR-c1-8Lw"/>
+                                    <segue destination="Gwv-Wc-DzZ" kind="show" identifier="detailSegue" id="irR-c1-8Lw"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -56,6 +56,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Repair Reports" id="9bK-RH-tCg">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="86R-bX-4nL">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="addNewForm:" destination="Llq-2t-V1o" id="gvY-Pf-34P"/>
                             </connections>
@@ -76,7 +77,6 @@
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YvP-sk-Bki">
                                 <rect key="frame" x="0.0" y="44" width="375" height="44"/>
-                                <color key="barTintColor" red="0.96647370769999996" green="1" blue="0.87615786169999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <items>
                                     <navigationItem title="New Form" id="z9n-NV-w4U">
                                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="2Xl-jl-7Zw"/>
