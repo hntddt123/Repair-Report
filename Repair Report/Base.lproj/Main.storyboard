@@ -86,14 +86,6 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kVt-Rq-v2H">
                                 <rect key="frame" x="0.0" y="88" width="375" height="724"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cph-u1-DXh">
-                                        <rect key="frame" x="161" y="641" width="52" height="41"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                        <state key="normal" title="Save"/>
-                                        <connections>
-                                            <action selector="saveReport:" destination="Gwv-Wc-DzZ" eventType="touchUpInside" id="MWC-bI-bW0"/>
-                                        </connections>
-                                    </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="aF2-eL-rXU">
                                         <rect key="frame" x="8.0000000000000142" y="8" width="240.33333333333337" height="488"/>
                                         <subviews>
@@ -253,6 +245,14 @@
                                             <constraint firstItem="8NB-f6-Kts" firstAttribute="leading" secondItem="aF2-eL-rXU" secondAttribute="leading" id="ses-yp-uXK"/>
                                         </constraints>
                                     </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cph-u1-DXh">
+                                        <rect key="frame" x="161" y="641" width="52" height="41"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <state key="normal" title="Save"/>
+                                        <connections>
+                                            <action selector="saveReport:" destination="Gwv-Wc-DzZ" eventType="touchUpInside" id="MWC-bI-bW0"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="aF2-eL-rXU" firstAttribute="top" secondItem="kVt-Rq-v2H" secondAttribute="topMargin" id="afY-sY-otT"/>

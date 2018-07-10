@@ -139,9 +139,8 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate {
         propertyNumber.setBottomBorder()
         eventDescription.layer.borderWidth = 1.0
         
-        //Resign keyboard
-        
-    
+        //Resign keyboard when touch outside of text
+        view.addGestureRecognizer(UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:))))
     }
 }
 
