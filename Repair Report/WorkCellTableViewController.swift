@@ -153,11 +153,14 @@ class WorkCellTableViewController: UITableViewController {
         }
     }
 
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "detailSegue" {
             navigationItem.backBarButtonItem?.tintColor = UIColor.white
         }
 
     }
+    
+
 
 }

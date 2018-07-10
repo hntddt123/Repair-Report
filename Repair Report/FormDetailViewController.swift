@@ -11,6 +11,7 @@ import CoreData
 
 class FormDetailViewController: UIViewController, UITextFieldDelegate {
    
+    @IBOutlet weak var reportTitle: UILabel!
     @IBOutlet weak var applicant: UITextField!
     @IBOutlet weak var fillDate: UITextField!
     @IBOutlet weak var equipmentName: UITextField!
@@ -100,7 +101,6 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         //Managed object context reference
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
             else {
@@ -127,6 +127,9 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate {
             let error as NSError {
                 print("Could not fetch. \(error), \(error.userInfo)")
         }
+        
+        reportTitle.text = "Report:"
+
     }
     
     override func viewDidLoad() {
