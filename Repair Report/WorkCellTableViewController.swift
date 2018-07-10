@@ -136,7 +136,7 @@ class WorkCellTableViewController: UITableViewController {
                 else {
                     return
             }
-            //NSObject context
+            //NSManangedObject context
             let managedContext = appDelegate.persistentContainer.viewContext
             managedContext.delete(reports[indexPath.row])
             self.reports.remove(at: indexPath.row)

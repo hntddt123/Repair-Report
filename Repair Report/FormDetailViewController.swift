@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class FormDetailViewController: UIViewController {
+class FormDetailViewController: UIViewController, UITextFieldDelegate {
    
     @IBOutlet weak var applicant: UITextField!
     @IBOutlet weak var fillDate: UITextField!
@@ -44,8 +44,8 @@ class FormDetailViewController: UIViewController {
               with equipmentName: String,
               with equipmentSerialNumber: String,
               with propertyNumber: String,
-              with eventDescription: String) {
-        
+              with eventDescription: String)
+    {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
             else {
                 return
@@ -75,6 +75,28 @@ class FormDetailViewController: UIViewController {
             print("Could not save. \(error), \(error.userInfo)")
         }
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        if textField == applicant {
+            applicant.resignFirstResponder()
+            fillDate.becomeFirstResponder()
+        } else if textField == fillDate {
+            textField.resignFirstResponder()
+            equipmentName.becomeFirstResponder()
+        } else if textField == equipmentName {
+            textField.resignFirstResponder()
+            equipmentSerialNumber.becomeFirstResponder()
+        } else if textField == equipmentSerialNumber {
+            textField.resignFirstResponder()
+            propertyNumber.becomeFirstResponder()
+        } else if textField == propertyNumber {
+            textField.resignFirstResponder()
+            eventDescription.becomeFirstResponder()
+        }
+        return true
+    }
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -109,7 +131,6 @@ class FormDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         //Set underline for the text
         applicant.setBottomBorder()
         fillDate.setBottomBorder()
@@ -117,6 +138,8 @@ class FormDetailViewController: UIViewController {
         equipmentSerialNumber.setBottomBorder()
         propertyNumber.setBottomBorder()
         eventDescription.layer.borderWidth = 1.0
+        
+        //Resign keyboard
         
     
     }
