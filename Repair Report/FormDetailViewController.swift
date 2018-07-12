@@ -18,6 +18,8 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var equipmentSerialNumber: UITextField!
     @IBOutlet weak var propertyNumber: UITextField!
     @IBOutlet weak var eventDescription: UITextView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     var reportDetails: [NSManagedObject] = []
     
     
@@ -95,7 +97,7 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate {
             textField.resignFirstResponder()
             eventDescription.becomeFirstResponder()
         }
-        return true
+        return false
     }
 
     
@@ -130,7 +132,24 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate {
         
         reportTitle.text = "Report:"
 
+    
     }
+    
+    @objc func keyboardWillShow(notification:NSNotification){
+        if self.eventDescription.isFirstResponder {
+            var userInfo = notification.userInfo!
+            var keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+            keyboardFrame = self.view.convert(keyboardFrame, from: nil)
+            scrollView.contentOffset = CGPoint(x:0, y:keyboardFrame.size.height)
+        }
+    }
+    
+    @objc func keyboardWillHide(notification:NSNotification){
+        if self.eventDescription.isFirstResponder {
+            scrollView.contentOffset = .zero
+        }
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -144,6 +163,10 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate {
         
         //Resign keyboard when touch outside of text
         view.addGestureRecognizer(UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:))))
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
+
+
     }
 }
 

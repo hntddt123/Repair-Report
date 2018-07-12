@@ -288,6 +288,7 @@
                         <outlet property="fillDate" destination="GA2-bA-FLx" id="3F8-Sp-Kcb"/>
                         <outlet property="propertyNumber" destination="YRq-NE-uCt" id="Eji-lG-w6u"/>
                         <outlet property="reportTitle" destination="HfM-St-ebk" id="ku0-lA-xLt"/>
+                        <outlet property="scrollView" destination="kVt-Rq-v2H" id="zVq-wt-Vwz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dUM-mF-PXE" userLabel="First Responder" sceneMemberID="firstResponder"/>
