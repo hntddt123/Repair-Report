@@ -95,7 +95,7 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="csB-xG-Dcy">
-                                        <rect key="frame" x="20" y="20" width="320" height="600"/>
+                                        <rect key="frame" x="20" y="20" width="335" height="601"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Report Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HfM-St-ebk">
                                                 <rect key="frame" x="0.0" y="0.0" width="119.33333333333333" height="28.666666666666668"/>
@@ -200,12 +200,9 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="5" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gdj-87-7yS">
-                                                <rect key="frame" x="0.0" y="388.66666666666669" width="320" height="211.33333333333331"/>
+                                                <rect key="frame" x="0.0" y="388.66666666666669" width="335" height="212.33333333333331"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="320" id="ehn-c6-OHf"/>
-                                                </constraints>
-                                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 <connections>
@@ -213,19 +210,14 @@
                                                 </connections>
                                             </textView>
                                         </subviews>
-                                        <constraints>
-                                            <constraint firstItem="gdj-87-7yS" firstAttribute="leading" secondItem="csB-xG-Dcy" secondAttribute="leading" id="BLq-J1-o1k"/>
-                                            <constraint firstAttribute="trailing" secondItem="gdj-87-7yS" secondAttribute="trailing" id="Hgd-Qe-1m6"/>
-                                            <constraint firstAttribute="bottom" secondItem="gdj-87-7yS" secondAttribute="bottom" id="OaN-8F-ZML"/>
-                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="csB-xG-Dcy" secondAttribute="trailing" constant="20" id="3LA-A5-AaN"/>
                                     <constraint firstItem="csB-xG-Dcy" firstAttribute="top" secondItem="kVt-Rq-v2H" secondAttribute="top" constant="20" id="DPQ-nA-h4q"/>
-                                    <constraint firstItem="Cph-u1-DXh" firstAttribute="centerX" secondItem="kVt-Rq-v2H" secondAttribute="centerX" id="fL3-3u-YCy"/>
-                                    <constraint firstItem="Cph-u1-DXh" firstAttribute="top" secondItem="kVt-Rq-v2H" secondAttribute="top" constant="641" id="hrP-qt-im9"/>
-                                    <constraint firstItem="Cph-u1-DXh" firstAttribute="top" secondItem="csB-xG-Dcy" secondAttribute="bottom" constant="21" id="nUS-Q6-EB4"/>
+                                    <constraint firstItem="Cph-u1-DXh" firstAttribute="centerX" secondItem="csB-xG-Dcy" secondAttribute="centerX" id="fL3-3u-YCy"/>
+                                    <constraint firstItem="Cph-u1-DXh" firstAttribute="top" secondItem="csB-xG-Dcy" secondAttribute="top" constant="621" id="hrP-qt-im9"/>
+                                    <constraint firstItem="Cph-u1-DXh" firstAttribute="top" secondItem="csB-xG-Dcy" secondAttribute="bottom" constant="20" id="nUS-Q6-EB4"/>
                                     <constraint firstItem="csB-xG-Dcy" firstAttribute="leading" secondItem="kVt-Rq-v2H" secondAttribute="leading" constant="20" id="sZX-mH-ZE6"/>
                                     <constraint firstItem="Cph-u1-DXh" firstAttribute="bottom" secondItem="kVt-Rq-v2H" secondAttribute="bottomMargin" id="xJE-02-yLO"/>
                                 </constraints>
@@ -233,13 +225,14 @@
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="kVt-Rq-v2H" firstAttribute="trailing" secondItem="YvP-sk-Bki" secondAttribute="trailing" id="8Mo-Pf-zGm"/>
+                            <constraint firstItem="kVt-Rq-v2H" firstAttribute="trailing" secondItem="B5e-F1-vSx" secondAttribute="trailing" id="8Mo-Pf-zGm"/>
                             <constraint firstAttribute="trailing" secondItem="YvP-sk-Bki" secondAttribute="trailing" id="CvQ-tT-B0y"/>
                             <constraint firstItem="YvP-sk-Bki" firstAttribute="leading" secondItem="B1N-uC-fCx" secondAttribute="leading" id="OIB-NW-zCJ"/>
                             <constraint firstAttribute="bottom" secondItem="kVt-Rq-v2H" secondAttribute="bottom" id="Rek-a1-P77"/>
-                            <constraint firstItem="kVt-Rq-v2H" firstAttribute="top" secondItem="B5e-F1-vSx" secondAttribute="top" id="YCK-fT-T6O"/>
+                            <constraint firstItem="kVt-Rq-v2H" firstAttribute="leading" secondItem="B5e-F1-vSx" secondAttribute="leading" id="Uh7-5F-tTA"/>
                             <constraint firstItem="YvP-sk-Bki" firstAttribute="bottom" secondItem="B5e-F1-vSx" secondAttribute="top" id="bQ3-8q-DpK"/>
-                            <constraint firstItem="kVt-Rq-v2H" firstAttribute="leading" secondItem="YvP-sk-Bki" secondAttribute="leading" id="ejC-of-C63"/>
+                            <constraint firstItem="gdj-87-7yS" firstAttribute="centerX" secondItem="B5e-F1-vSx" secondAttribute="centerX" id="d1i-gz-h5h"/>
+                            <constraint firstItem="kVt-Rq-v2H" firstAttribute="top" secondItem="B5e-F1-vSx" secondAttribute="top" id="lw5-0B-fzD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="B5e-F1-vSx"/>
                     </view>
