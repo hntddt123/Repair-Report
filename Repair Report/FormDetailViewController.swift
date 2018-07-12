@@ -140,14 +140,14 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate {
             var userInfo = notification.userInfo!
             var keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
             keyboardFrame = self.view.convert(keyboardFrame, from: nil)
+            scrollView.contentInset.bottom = keyboardFrame.size.height
             scrollView.contentOffset = CGPoint(x:0, y:keyboardFrame.size.height)
         }
     }
     
     @objc func keyboardWillHide(notification:NSNotification){
-        if self.eventDescription.isFirstResponder {
-            scrollView.contentOffset = .zero
-        }
+        scrollView.contentOffset = .zero
+        scrollView.contentInset = .zero
     }
 
     
@@ -165,7 +165,6 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate {
         view.addGestureRecognizer(UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:))))
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
-
 
     }
 }
