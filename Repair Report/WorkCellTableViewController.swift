@@ -14,14 +14,13 @@ class WorkCellTableViewController: UITableViewController {
     //Cellarray contains "Report x"
     //Cellarray date contains "2018/06/12 for right detail"
     var reports: [NSManagedObject] = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         
         //Managed object context reference
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -156,9 +155,9 @@ class WorkCellTableViewController: UITableViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "detailSegue" {
-            navigationItem.backBarButtonItem?.tintColor = UIColor.white
+            let DestinationViewController = segue.destination as! FormDetailViewController
+            DestinationViewController.titleText = "Report Summary"
         }
-
     }
     
 

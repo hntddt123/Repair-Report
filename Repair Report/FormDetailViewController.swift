@@ -129,10 +129,6 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate {
             let error as NSError {
                 print("Could not fetch. \(error), \(error.userInfo)")
         }
-        
-        reportTitle.text = "Report:"
-
-    
     }
     
     @objc func keyboardWillShow(notification:NSNotification){
@@ -150,9 +146,10 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate {
         scrollView.contentInset = .zero
     }
 
-    
+    var titleText: String!
     override func viewDidLoad() {
         super.viewDidLoad()
+        reportTitle.text = titleText
         //Set underline for the text
         applicant.setBottomBorder()
         fillDate.setBottomBorder()
