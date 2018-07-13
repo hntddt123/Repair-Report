@@ -147,7 +147,7 @@ class WorkCellTableViewController: UITableViewController, UITextFieldDelegate {
         let report = reports[indexPath.row]
 
         if let reportCell = cell as? ReportTableViewCell {
-            reportCell.reportImageView.image = UIImage(named: "HDMM.png")
+            reportCell.reportImageView.image = UIImage(named: "HDMM.JPG")
             reportCell.reportName.text = report.value(forKeyPath: "reportTitle") as? String
             reportCell.reportDate.text = report.value(forKeyPath: "fillDate") as? String
         }
@@ -183,9 +183,9 @@ class WorkCellTableViewController: UITableViewController, UITextFieldDelegate {
         if segue.identifier == "detailSegue" {
             let DestinationViewController = segue.destination as! FormDetailViewController
             DestinationViewController.titleText = "Report Summary"
-            if let cell = sender as? ReportTableViewCell, let indexPath = tableView.indexPath(for: cell) {
-                //TODO: detail info
-            }
+//            if let cell = sender as? ReportTableViewCell, let indexPath = tableView.indexPath(for: cell) {
+//                //TODO: detail info
+//            }
         }
     }
     
