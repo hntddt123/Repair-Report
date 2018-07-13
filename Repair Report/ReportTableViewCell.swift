@@ -8,17 +8,12 @@
 
 import UIKit
 
-class ReportTableViewCell: UITableViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
+class ReportTableViewCell: UITableViewCell
+{
+    @IBOutlet weak var reportImageView: UIImageView!
+    @IBOutlet weak var reportName: UILabel!
+    @IBOutlet weak var reportDate: UILabel!
+    
+//    var dataInThisCell: Type { didset { updateUI() } }
 
 }

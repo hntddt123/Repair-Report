@@ -9,11 +9,31 @@
 import UIKit
 import CoreData
 
-class WorkCellTableViewController: UITableViewController {
+class WorkCellTableViewController: UITableViewController, UITextFieldDelegate {
    
     //Cellarray contains "Report x"
     //Cellarray date contains "2018/06/12 for right detail"
+    @IBOutlet weak var searchTextField: UITextField! {
+        didSet {
+            searchTextField.delegate = self
+        }
+    }
+    var searchText: String? {
+        didSet {
+            searchTextField?.text = searchText
+            searchTextField?.resignFirstResponder()
+            //TODO: Search report
+        }
+    }
+    private var repairReports = [RepairReport]()
     var reports: [NSManagedObject] = []
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == searchTextField {
+            searchText = searchTextField.text
+        }
+        return true
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,6 +128,7 @@ class WorkCellTableViewController: UITableViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         //return the number of sections
+        //TODO: Change to repaired and not repaired
         return 1
     }
 
@@ -120,11 +141,15 @@ class WorkCellTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reportCell", for: indexPath)
+        //TODO: Custom cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "customReportCell", for: indexPath)
+//        if let cell = dequeued as? ReportTableViewCell {
+//            cell.dataInThisCell =
+//        }
         let report = reports[indexPath.row]
         cell.textLabel?.text = report.value(forKeyPath: "reportTitle") as? String
         cell.detailTextLabel?.text = report.value(forKeyPath: "fillDate") as? String
-
+        
         return cell
     }
     
@@ -157,6 +182,9 @@ class WorkCellTableViewController: UITableViewController {
         if segue.identifier == "detailSegue" {
             let DestinationViewController = segue.destination as! FormDetailViewController
             DestinationViewController.titleText = "Report Summary"
+            if let cell = sender as? ReportTableViewCell, let indexPath = tableView.indexPath(for: cell) {
+                //TODO: detail info
+            }
         }
     }
     

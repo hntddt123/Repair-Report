@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		C33B660320EBBCE900250137 /* ReportModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C33B660120EBBCE900250137 /* ReportModel.xcdatamodeld */; };
-		C33EB3F720F455C7009F175C /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33EB3F620F455C7009F175C /* Report.swift */; };
 		C340AF5A20DC59F4006AEA7C /* WorkCellTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C340AF5920DC59F4006AEA7C /* WorkCellTableViewController.swift */; };
 		C340AF5C20DC6ADF006AEA7C /* ReportTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C340AF5B20DC6ADF006AEA7C /* ReportTableViewCell.swift */; };
+		C349FC5420F8495300BE8064 /* RepairReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C349FC5320F8495300BE8064 /* RepairReport.swift */; };
 		C3B2BB3E20D342D000715062 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B2BB3D20D342D000715062 /* AppDelegate.swift */; };
 		C3B2BB4320D342D000715062 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3B2BB4120D342D000715062 /* Main.storyboard */; };
 		C3B2BB4520D342D100715062 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3B2BB4420D342D100715062 /* Assets.xcassets */; };
@@ -20,9 +20,9 @@
 
 /* Begin PBXFileReference section */
 		C33B660220EBBCE900250137 /* ReportModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ReportModel.xcdatamodel; sourceTree = "<group>"; };
-		C33EB3F620F455C7009F175C /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		C340AF5920DC59F4006AEA7C /* WorkCellTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkCellTableViewController.swift; sourceTree = "<group>"; };
 		C340AF5B20DC6ADF006AEA7C /* ReportTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportTableViewCell.swift; sourceTree = "<group>"; };
+		C349FC5320F8495300BE8064 /* RepairReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepairReport.swift; sourceTree = "<group>"; };
 		C3B2BB3A20D342D000715062 /* Repair Report.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Repair Report.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3B2BB3D20D342D000715062 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3B2BB4220D342D000715062 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -65,9 +65,9 @@
 				C33B660120EBBCE900250137 /* ReportModel.xcdatamodeld */,
 				C340AF5920DC59F4006AEA7C /* WorkCellTableViewController.swift */,
 				C3D0FE9420DAF68600FDAC67 /* FormDetailViewController.swift */,
-				C3B2BB4120D342D000715062 /* Main.storyboard */,
-				C33EB3F620F455C7009F175C /* Report.swift */,
+				C349FC5320F8495300BE8064 /* RepairReport.swift */,
 				C340AF5B20DC6ADF006AEA7C /* ReportTableViewCell.swift */,
+				C3B2BB4120D342D000715062 /* Main.storyboard */,
 				C3B2BB4920D342D100715062 /* Info.plist */,
 				C3B2BB4F20D342E100715062 /* Supporting Files */,
 			);
@@ -157,10 +157,10 @@
 			files = (
 				C3B2BB3E20D342D000715062 /* AppDelegate.swift in Sources */,
 				C340AF5A20DC59F4006AEA7C /* WorkCellTableViewController.swift in Sources */,
+				C349FC5420F8495300BE8064 /* RepairReport.swift in Sources */,
 				C3D0FE9520DAF68600FDAC67 /* FormDetailViewController.swift in Sources */,
 				C340AF5C20DC6ADF006AEA7C /* ReportTableViewCell.swift in Sources */,
 				C33B660320EBBCE900250137 /* ReportModel.xcdatamodeld in Sources */,
-				C33EB3F720F455C7009F175C /* Report.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
