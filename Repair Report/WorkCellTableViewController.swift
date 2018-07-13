@@ -26,6 +26,7 @@ class WorkCellTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     private var repairReports = [RepairReport]()
+    //TODO:repairReportModel
     var reports: [NSManagedObject] = []
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -84,7 +85,7 @@ class WorkCellTableViewController: UITableViewController, UITextFieldDelegate {
             
             //Date format for new entry
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy/MM/dd"
+            dateFormatter.dateFormat = "yyyy/MM/dd 'at' HH:mm"
             let date = Date()
             let dateString = dateFormatter.string(from: date)
             //Append data to NSManagedObject array
@@ -143,13 +144,13 @@ class WorkCellTableViewController: UITableViewController, UITextFieldDelegate {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //TODO: Custom cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "customReportCell", for: indexPath)
-//        if let cell = dequeued as? ReportTableViewCell {
-//            cell.dataInThisCell =
-//        }
         let report = reports[indexPath.row]
-        cell.textLabel?.text = report.value(forKeyPath: "reportTitle") as? String
-        cell.detailTextLabel?.text = report.value(forKeyPath: "fillDate") as? String
-        
+
+        if let reportCell = cell as? ReportTableViewCell {
+            reportCell.reportImageView.image = UIImage(named: "HDMM.png")
+            reportCell.reportName.text = report.value(forKeyPath: "reportTitle") as? String
+            reportCell.reportDate.text = report.value(forKeyPath: "fillDate") as? String
+        }
         return cell
     }
     

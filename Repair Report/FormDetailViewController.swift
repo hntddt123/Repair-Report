@@ -22,7 +22,6 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate {
     
     var reportDetails: [NSManagedObject] = []
     
-    
     @IBAction func saveReport(_ sender: UIButton) {
         // TODO: Save ReportDetail
         let applicantToSave = applicant.text!
