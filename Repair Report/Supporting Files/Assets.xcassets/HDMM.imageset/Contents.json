@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "HDMM.jpg",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "HDMM.jpg",
       "scale" : "2x"
     },
     {

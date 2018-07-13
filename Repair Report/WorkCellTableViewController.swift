@@ -25,8 +25,9 @@ class WorkCellTableViewController: UITableViewController, UITextFieldDelegate {
             //TODO: Search report
         }
     }
+    //Report model
     private var repairReports = [RepairReport]()
-    //TODO:repairReportModel
+    //TODO:Repair Report Model
     var reports: [NSManagedObject] = []
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -34,6 +35,59 @@ class WorkCellTableViewController: UITableViewController, UITextFieldDelegate {
             searchText = searchTextField.text
         }
         return true
+    }
+    
+    @IBAction func addNewForm(_ sender: UIBarButtonItem) {
+        let alert = UIAlertController(title: "New Report", message: "Enter report name", preferredStyle: .alert)
+        
+        //Textbox decoration
+        alert.addTextField(configurationHandler: { (textField) in
+            textField.placeholder = "Name"
+        })
+        //Cancel Action
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: " Default action"), style: .cancel , handler: { _ in
+        }))
+        //OK Action
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+            //Date format for new entry
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy/MM/dd 'at' HH:mm"
+            let date = Date()
+            let dateString = dateFormatter.string(from: date)
+            
+            //Append data to NSManagedObject array
+            let titleToSave = (alert.textFields?.first?.text)!
+            self.save(with: titleToSave, with: dateString)
+            
+            //Update Table
+            self.tableView.beginUpdates()
+            self.tableView.insertRows(at: [IndexPath(row: self.reports.count-1, section: 0)], with: .automatic)
+            self.tableView.endUpdates()
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func save(with title: String, with date: String) {
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        //NSObject context
+        let managedContext = appDelegate.persistentContainer.viewContext
+        //Insert to NSManagedObject
+        let entity = NSEntityDescription.entity(forEntityName: "Report",
+                                                in: managedContext)!
+        let report = NSManagedObject(entity: entity,
+                                     insertInto: managedContext)
+        //key-value coding
+        report.setValue(title, forKeyPath: "reportTitle")
+        report.setValue(date, forKeyPath: "fillDate")
+        
+        //save
+        do {
+            try managedContext.save()
+            reports.append(report)
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
     }
     
     override func viewDidLoad() {
@@ -44,10 +98,9 @@ class WorkCellTableViewController: UITableViewController, UITextFieldDelegate {
         super.viewWillAppear(animated)
         
         //Managed object context reference
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
-            else {
-                return
-        }
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        //PersistentContainer
         let managedContext = appDelegate.persistentContainer.viewContext
         
         //Fetch settings from Report Entity
@@ -69,66 +122,7 @@ class WorkCellTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     // MARK: - Table view data source
-   
-    @IBAction func addNewForm(_ sender: UIBarButtonItem) {
-        let alert = UIAlertController(title: "New Report", message: "Enter report name", preferredStyle: .alert)
-        
-        //Textbox decoration
-        alert.addTextField(configurationHandler: { (textField) in
-            textField.placeholder = "Name"
-        })
-        //Cancel Action
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: " Default action"), style: .cancel , handler: { _ in
-        }))
-        //OK Action
-        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-            
-            //Date format for new entry
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy/MM/dd 'at' HH:mm"
-            let date = Date()
-            let dateString = dateFormatter.string(from: date)
-            //Append data to NSManagedObject array
-            let titleToSave = (alert.textFields?.first?.text)!
-            self.save(with: titleToSave, with: dateString)
-            
-            //Update Table
-            self.tableView.beginUpdates()
-            self.tableView.insertRows(at: [IndexPath(row: self.reports.count-1, section: 0)], with: .automatic)
-            self.tableView.endUpdates()
-        }))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    func save(with title: String, with date: String) {
-
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
-            else {
-                return
-        }
-
-        //NSObject context
-        let managedContext = appDelegate.persistentContainer.viewContext
-        //Insert to NSManagedObject
-        let entity = NSEntityDescription.entity(forEntityName: "Report",
-                                                in: managedContext)!
-        let report = NSManagedObject(entity: entity,
-                                     insertInto: managedContext)
-        //key-value coding
-        report.setValue(title, forKeyPath: "reportTitle")
-        report.setValue(date, forKeyPath: "fillDate")
-
-        //save
-        do {
-            try managedContext.save()
-            reports.append(report)
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-    }
-    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        //return the number of sections
         //TODO: Change to repaired and not repaired
         return 1
     }
@@ -158,10 +152,7 @@ class WorkCellTableViewController: UITableViewController, UITextFieldDelegate {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
-                else {
-                    return
-            }
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
             //NSManangedObject context
             let managedContext = appDelegate.persistentContainer.viewContext
             managedContext.delete(reports[indexPath.row])

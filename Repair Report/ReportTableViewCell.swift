@@ -14,6 +14,4 @@ class ReportTableViewCell: UITableViewCell
     @IBOutlet weak var reportName: UILabel!
     @IBOutlet weak var reportDate: UILabel!
     
-//    var dataInThisCell: Type { didset { updateUI() } }
-
 }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C33B660320EBBCE900250137 /* ReportModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C33B660120EBBCE900250137 /* ReportModel.xcdatamodeld */; };
+		C33DFDE120F94AE6008C7E15 /* RepairReportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33DFDE020F94AE6008C7E15 /* RepairReportTests.swift */; };
 		C340AF5A20DC59F4006AEA7C /* WorkCellTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C340AF5920DC59F4006AEA7C /* WorkCellTableViewController.swift */; };
 		C340AF5C20DC6ADF006AEA7C /* ReportTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C340AF5B20DC6ADF006AEA7C /* ReportTableViewCell.swift */; };
 		C349FC5420F8495300BE8064 /* RepairReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C349FC5320F8495300BE8064 /* RepairReport.swift */; };
@@ -18,8 +19,21 @@
 		C3D0FE9520DAF68600FDAC67 /* FormDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D0FE9420DAF68600FDAC67 /* FormDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		C33DFDE320F94AE7008C7E15 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3B2BB3220D342D000715062 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C3B2BB3920D342D000715062;
+			remoteInfo = "Repair Report";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		C33B660220EBBCE900250137 /* ReportModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ReportModel.xcdatamodel; sourceTree = "<group>"; };
+		C33DFDDE20F94AE6008C7E15 /* RepairReportTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RepairReportTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C33DFDE020F94AE6008C7E15 /* RepairReportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepairReportTests.swift; sourceTree = "<group>"; };
+		C33DFDE220F94AE7008C7E15 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C340AF5920DC59F4006AEA7C /* WorkCellTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkCellTableViewController.swift; sourceTree = "<group>"; };
 		C340AF5B20DC6ADF006AEA7C /* ReportTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportTableViewCell.swift; sourceTree = "<group>"; };
 		C349FC5320F8495300BE8064 /* RepairReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepairReport.swift; sourceTree = "<group>"; };
@@ -33,6 +47,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		C33DFDDB20F94AE6008C7E15 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C3B2BB3720D342D000715062 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -43,10 +64,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C33DFDDF20F94AE6008C7E15 /* RepairReportTests */ = {
+			isa = PBXGroup;
+			children = (
+				C33DFDE020F94AE6008C7E15 /* RepairReportTests.swift */,
+				C33DFDE220F94AE7008C7E15 /* Info.plist */,
+			);
+			path = RepairReportTests;
+			sourceTree = "<group>";
+		};
 		C3B2BB3120D342D000715062 = {
 			isa = PBXGroup;
 			children = (
 				C3B2BB3C20D342D000715062 /* Repair Report */,
+				C33DFDDF20F94AE6008C7E15 /* RepairReportTests */,
 				C3B2BB3B20D342D000715062 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -55,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				C3B2BB3A20D342D000715062 /* Repair Report.app */,
+				C33DFDDE20F94AE6008C7E15 /* RepairReportTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -87,6 +119,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		C33DFDDD20F94AE6008C7E15 /* RepairReportTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C33DFDE520F94AE7008C7E15 /* Build configuration list for PBXNativeTarget "RepairReportTests" */;
+			buildPhases = (
+				C33DFDDA20F94AE6008C7E15 /* Sources */,
+				C33DFDDB20F94AE6008C7E15 /* Frameworks */,
+				C33DFDDC20F94AE6008C7E15 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C33DFDE420F94AE7008C7E15 /* PBXTargetDependency */,
+			);
+			name = RepairReportTests;
+			productName = RepairReportTests;
+			productReference = C33DFDDE20F94AE6008C7E15 /* RepairReportTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		C3B2BB3920D342D000715062 /* Repair Report */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C3B2BB4C20D342D100715062 /* Build configuration list for PBXNativeTarget "Repair Report" */;
@@ -114,6 +164,10 @@
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = HNTStudio;
 				TargetAttributes = {
+					C33DFDDD20F94AE6008C7E15 = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = C3B2BB3920D342D000715062;
+					};
 					C3B2BB3920D342D000715062 = {
 						CreatedOnToolsVersion = 9.4.1;
 					};
@@ -133,11 +187,19 @@
 			projectRoot = "";
 			targets = (
 				C3B2BB3920D342D000715062 /* Repair Report */,
+				C33DFDDD20F94AE6008C7E15 /* RepairReportTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		C33DFDDC20F94AE6008C7E15 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C3B2BB3820D342D000715062 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -151,6 +213,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C33DFDDA20F94AE6008C7E15 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C33DFDE120F94AE6008C7E15 /* RepairReportTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C3B2BB3620D342D000715062 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -165,6 +235,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C33DFDE420F94AE7008C7E15 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C3B2BB3920D342D000715062 /* Repair Report */;
+			targetProxy = C33DFDE320F94AE7008C7E15 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C3B2BB4120D342D000715062 /* Main.storyboard */ = {
@@ -186,6 +264,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		C33DFDE620F94AE7008C7E15 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JGVA233E7G;
+				INFOPLIST_FILE = RepairReportTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = HDMM.RepairReportTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Repair Report.app/Repair Report";
+			};
+			name = Debug;
+		};
+		C33DFDE720F94AE7008C7E15 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JGVA233E7G;
+				INFOPLIST_FILE = RepairReportTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = HDMM.RepairReportTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Repair Report.app/Repair Report";
+			};
+			name = Release;
+		};
 		C3B2BB4A20D342D100715062 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -339,6 +457,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C33DFDE520F94AE7008C7E15 /* Build configuration list for PBXNativeTarget "RepairReportTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C33DFDE620F94AE7008C7E15 /* Debug */,
+				C33DFDE720F94AE7008C7E15 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C3B2BB3520D342D000715062 /* Build configuration list for PBXProject "Repair Report" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
