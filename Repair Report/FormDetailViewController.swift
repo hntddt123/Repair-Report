@@ -10,8 +10,9 @@ import UIKit
 import CoreData
 
 class FormDetailViewController: UIViewController, UITextFieldDelegate {
-   
-    @IBOutlet weak var reportTitle: UILabel!
+    
+    @IBOutlet weak var documentName: UITextField!
+    @IBOutlet weak var equipmentImage: UIImageView!
     @IBOutlet weak var applicant: UITextField!
     @IBOutlet weak var fillDate: UITextField!
     @IBOutlet weak var equipmentName: UITextField!
@@ -20,67 +21,47 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var eventDescription: UITextView!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    var reportDetails: [NSManagedObject] = []
-    
-    @IBAction func saveReport(_ sender: UIButton) {
-        // TODO: Save ReportDetail
-        let applicantToSave = applicant.text!
-        let fillDateToSave = fillDate.text!
-        let equipmentNameToSave = equipmentName.text!
-        let equipmentSerialNumberToSave = equipmentSerialNumber.text!
-        let propertyNumberToSave = propertyNumber.text!
-        let eventDescriptionToSave =  eventDescription.text!
-        
-        //Save text to Core Data ReportDetail
-        save(with: applicantToSave,
-             with: fillDateToSave,
-             with: equipmentNameToSave,
-             with: equipmentSerialNumberToSave,
-             with: propertyNumberToSave,
-             with: eventDescriptionToSave)
-
+    @IBAction func cancel(_ sender: UIBarButtonItem) {
+        self.dismiss(animated: true, completion: nil)
     }
     
-    func save(with applicant: String,
-              with date: String,
-              with equipmentName: String,
-              with equipmentSerialNumber: String,
-              with propertyNumber: String,
-              with eventDescription: String)
-    {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
-            else {
-                return
-        }
+    @IBAction func save(_ sender: UIBarButtonItem) {
+        //Date format for new entry
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy/MM/dd 'at' HH:mm"
+        let date = Date()
+        let dateString = dateFormatter.string(from: date)
+        //Append data to NSManagedObject array
+        let testImage = #imageLiteral(resourceName: "HDMM")
+        let report = RepairReport.init(name: documentName.text!, date: dateString, photo: testImage, applicant: applicant.text!, equipmentName: equipmentName.text!, equipmentSerialNumber: equipmentSerialNumber.text!, propertyNumber: propertyNumber.text!, eventDescription: eventDescription.text!)
+        //Save to Core Data
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "DetailRepairReport", in: context)
+        let newForm = NSManagedObject(entity: entity!, insertInto: context)
         
-        //NSObject context
-        let managedContext = appDelegate.persistentContainer.viewContext
-        //Insert to NSManagedObject
-        let entity = NSEntityDescription.entity(forEntityName: "ReportDetail",
-                                                in: managedContext)!
-        let reportDetail = NSManagedObject(entity: entity,
-                                     insertInto: managedContext)
-        
-        //key-value coding
-        reportDetail.setValue(applicant, forKeyPath: "applicantName")
-        reportDetail.setValue(date, forKeyPath: "fillDate")
-        reportDetail.setValue(equipmentName, forKeyPath: "equipmentName")
-        reportDetail.setValue(equipmentSerialNumber, forKeyPath: "equipmentSerialNumber")
-        reportDetail.setValue(propertyNumber, forKeyPath: "propertyNumber")
-        reportDetail.setValue(eventDescription, forKeyPath: "eventDescription")
-        
-        //save to reportDetail Data
+        newForm.setValue(report?.name, forKey: "reportName")
+        //newForm.setValue(report?.photo, forKey: "equipmentImage")
+        newForm.setValue(report?.applicant, forKey: "applicantName")
+        newForm.setValue(report?.date, forKey: "fillDate")
+        newForm.setValue(report?.equipmentName, forKey: "equipmentName")
+        newForm.setValue(report?.equipmentSerialNumber, forKey: "equipmentSerialNumber")
+        newForm.setValue(report?.isRepaired, forKey: "isRepaired")
+        newForm.setValue(report?.propertyNumber, forKey: "propertyNumber")
+        newForm.setValue(report?.eventDescription, forKey: "eventDescription")
         do {
-            try managedContext.save()
-            //reportDetails.append(reportDetail)
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
+            try context.save()
+        } catch {
+            print("Failed saving")
         }
+        self.dismiss(animated: true, completion: nil)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
-        if textField == applicant {
+        if textField == documentName {
+            documentName.resignFirstResponder()
+            applicant.becomeFirstResponder()
+        } else if textField == applicant {
             applicant.resignFirstResponder()
             fillDate.becomeFirstResponder()
         } else if textField == fillDate {
@@ -102,32 +83,6 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //Managed object context reference
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
-            else {
-                return
-        }
-        
-        let managedContext = appDelegate.persistentContainer.viewContext
-        
-        //Fetch settings from ReportDetail Entity
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ReportDetail")
-        
-        //Fetch to reportDetails
-        do {
-            reportDetails = try managedContext.fetch(fetchRequest)
-            for text in reportDetails as [NSManagedObject] {
-                applicant.text = text.value(forKey: "applicantName") as? String
-                fillDate.text = text.value(forKey: "fillDate") as? String
-                equipmentName.text = text.value(forKey: "equipmentName") as? String
-                equipmentSerialNumber.text = text.value(forKey: "equipmentSerialNumber") as? String
-                propertyNumber.text = text.value(forKey: "propertyNumber") as? String
-                eventDescription.text = text.value(forKey: "eventDescription") as? String
-            }
-        } catch
-            let error as NSError {
-                print("Could not fetch. \(error), \(error.userInfo)")
-        }
     }
     
     @objc func keyboardWillShow(notification:NSNotification){
@@ -145,17 +100,17 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate {
         scrollView.contentInset = .zero
     }
 
-    var titleText: String!
     override func viewDidLoad() {
         super.viewDidLoad()
-        reportTitle.text = titleText
         //Set underline for the text
+        documentName.setBottomBorder()
         applicant.setBottomBorder()
         fillDate.setBottomBorder()
         equipmentName.setBottomBorder()
         equipmentSerialNumber.setBottomBorder()
         propertyNumber.setBottomBorder()
         eventDescription.layer.borderWidth = 1.0
+        equipmentImage.image = #imageLiteral(resourceName: "HDMMHNT")
         
         //Resign keyboard when touch outside of text
         view.addGestureRecognizer(UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:))))

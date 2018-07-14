@@ -7,18 +7,19 @@
 //
 
 import UIKit
+import CoreData
 
 class RepairReport {
     
     var isRepaired: Bool
-    var reportName: String
-    var reportDate: String
-    var reportPhoto: UIImage?
-    var reportApplicant: String
-    var reportEquipmentName: String
-    var reportEquipmentSerialNumber: String
-    var reportPropertyNumber: String
-    var reportEventDescription: String
+    var name: String
+    var date: String
+    var photo: UIImage?
+    var applicant: String
+    var equipmentName: String
+    var equipmentSerialNumber: String
+    var propertyNumber: String
+    var eventDescription: String
     
     init?(name: String,
          date: String,
@@ -28,19 +29,18 @@ class RepairReport {
          equipmentSerialNumber: String,
          propertyNumber: String,
          eventDescription: String) {
-        
         if name.isEmpty {
             return nil
         }
         self.isRepaired = false
-        self.reportName = name
-        self.reportDate = date
-        self.reportPhoto = photo
-        self.reportApplicant = applicant
-        self.reportEquipmentName = equipmentName
-        self.reportEquipmentSerialNumber = equipmentSerialNumber
-        self.reportPropertyNumber = propertyNumber
-        self.reportEventDescription = eventDescription
+        self.name = name
+        self.date = date
+        self.photo = photo
+        self.applicant = applicant
+        self.equipmentName = equipmentName
+        self.equipmentSerialNumber = equipmentSerialNumber
+        self.propertyNumber = propertyNumber
+        self.eventDescription = eventDescription
 
     }
 
