@@ -20,9 +20,20 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var propertyNumber: UITextField!
     @IBOutlet weak var eventDescription: UITextView!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
-        self.dismiss(animated: true, completion: nil)
+        let isPresentingInAddFormMode = presentingViewController is UINavigationController
+        // Depending on style of presentation (modal or push presentation), this view controller needs to be dismissed in two different ways.
+        if isPresentingInAddFormMode  {
+            dismiss(animated: true, completion: nil)
+        } else if let owningNavigationController = navigationController {
+            owningNavigationController.popViewController(animated: true)
+        } else {
+            fatalError("The AddFormController is not inside a navigation controller.")
+        }
+
+        
     }
     
     @IBAction func save(_ sender: UIBarButtonItem) {
@@ -57,6 +68,23 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate {
         self.dismiss(animated: true, completion: nil)
     }
     
+    private func updateSaveButtonState() {
+        // Disable the Save button if the text field is empty.
+        let text = documentName.text ?? ""
+        saveButton.isEnabled = !text.isEmpty
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        // Disable the Save button while editing.
+        saveButton.isEnabled = false
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        updateSaveButtonState()
+        navigationItem.title = documentName.text
+    }
+
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == documentName {
             documentName.resignFirstResponder()

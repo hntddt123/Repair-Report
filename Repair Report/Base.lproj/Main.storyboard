@@ -76,6 +76,7 @@
                                     <outlet property="reportDate" destination="4xb-fQ-uzs" id="P0Y-YF-dZH"/>
                                     <outlet property="reportImageView" destination="ojT-s0-oxt" id="rCe-L8-jgS"/>
                                     <outlet property="reportName" destination="1w5-yY-NRG" id="Mga-Sl-mxy"/>
+                                    <segue destination="Gwv-Wc-DzZ" kind="show" id="DvG-kU-kDG"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -283,7 +284,7 @@
                                 <action selector="cancel:" destination="Gwv-Wc-DzZ" id="74o-G0-QoU"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="wVg-X9-6YK">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="save" id="wVg-X9-6YK">
                             <connections>
                                 <action selector="save:" destination="Gwv-Wc-DzZ" id="dxV-f8-xIA"/>
                             </connections>
@@ -298,12 +299,14 @@
                         <outlet property="eventDescription" destination="gdj-87-7yS" id="tbW-4z-cUP"/>
                         <outlet property="fillDate" destination="GA2-bA-FLx" id="3F8-Sp-Kcb"/>
                         <outlet property="propertyNumber" destination="YRq-NE-uCt" id="Eji-lG-w6u"/>
+                        <outlet property="saveButton" destination="wVg-X9-6YK" id="PCb-Su-UQw"/>
                         <outlet property="scrollView" destination="kVt-Rq-v2H" id="zVq-wt-Vwz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dUM-mF-PXE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="z1e-7h-cOt"/>
             </objects>
-            <point key="canvasLocation" x="2086" y="-52"/>
+            <point key="canvasLocation" x="2150" y="248"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="zlG-Ki-M5t">
@@ -339,7 +342,10 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lz1-QP-IRE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1316" y="-52"/>
+            <point key="canvasLocation" x="1295" y="659"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="DvG-kU-kDG"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -22,18 +22,19 @@ class RepairReport {
     var eventDescription: String
     
     init?(name: String,
-         date: String,
-         photo: UIImage?,
-         applicant: String,
-         equipmentName: String,
-         equipmentSerialNumber: String,
-         propertyNumber: String,
-         eventDescription: String) {
+          date: String,
+          photo: UIImage?,
+          applicant: String,
+          equipmentName: String,
+          equipmentSerialNumber: String,
+          propertyNumber: String,
+          eventDescription: String) {
         if name.isEmpty {
-            return nil
+            self.name = "Untitled"
+        } else {
+            self.name = name
         }
         self.isRepaired = false
-        self.name = name
         self.date = date
         self.photo = photo
         self.applicant = applicant
@@ -41,7 +42,7 @@ class RepairReport {
         self.equipmentSerialNumber = equipmentSerialNumber
         self.propertyNumber = propertyNumber
         self.eventDescription = eventDescription
-
+        
     }
-
+    
 }
