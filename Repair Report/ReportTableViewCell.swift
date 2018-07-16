@@ -13,5 +13,4 @@ class ReportTableViewCell: UITableViewCell
     @IBOutlet weak var reportImageView: UIImageView!
     @IBOutlet weak var reportName: UILabel!
     @IBOutlet weak var reportDate: UILabel!
-    
 }

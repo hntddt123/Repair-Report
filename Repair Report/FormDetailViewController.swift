@@ -65,7 +65,14 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate {
         } catch {
             print("Failed saving")
         }
-        self.dismiss(animated: true, completion: nil)
+        let isPresentingInAddFormMode = presentingViewController is UINavigationController
+        if isPresentingInAddFormMode  {
+            dismiss(animated: true, completion: nil)
+        } else if let owningNavigationController = navigationController {
+            owningNavigationController.popViewController(animated: true)
+        } else {
+            fatalError("The AddFormController is not inside a navigation controller.")
+        }
     }
     
     private func updateSaveButtonState() {
