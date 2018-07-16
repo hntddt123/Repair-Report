@@ -40,28 +40,56 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
         //Append data to NSManagedObject array
         
         let report = RepairReport.init(name: documentNameTextField.text!, date: dateString, photo: equipmentImageView.image, applicant: applicantTextField.text!, equipmentName: equipmentNameTextField.text!, equipmentSerialNumber: equipmentSerialNumberTextField.text!, propertyNumber: propertyNumberTextField.text!, eventDescription: eventDescriptionTextField.text!)
-        
-        //Save to Core Data
+        let image = UIImageJPEGRepresentation(equipmentImageView.image!, 0.0)
+        //Save to Core Data if not exist else update data
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: "DetailRepairReport", in: context)
-        let newForm = NSManagedObject(entity: entity!, insertInto: context)
-        
-        //Save report to database
-        let image: NSData? = UIImageJPEGRepresentation(equipmentImageView.image!, 0.0) as NSData?
-        newForm.setValue(report?.name, forKey: "reportName")
-        newForm.setValue(image, forKey: "equipmentImage")
-        newForm.setValue(report?.applicant, forKey: "applicantName")
-        newForm.setValue(report?.date, forKey: "fillDate")
-        newForm.setValue(report?.equipmentName, forKey: "equipmentName")
-        newForm.setValue(report?.equipmentSerialNumber, forKey: "equipmentSerialNumber")
-        newForm.setValue(report?.isRepaired, forKey: "isRepaired")
-        newForm.setValue(report?.propertyNumber, forKey: "propertyNumber")
-        newForm.setValue(report?.eventDescription, forKey: "eventDescription")
-        do {
-            try context.save()
-        } catch {
-            print("Failed saving")
+
+        let isPresentingInAddFormMode = presentingViewController is UINavigationController
+        if isPresentingInAddFormMode  {
+            //Add new form
+
+            let entity = NSEntityDescription.entity(forEntityName: "DetailRepairReport", in: context)
+            let newForm = NSManagedObject(entity: entity!, insertInto: context)
+            newForm.setValue(report?.name, forKey: "reportName")
+            newForm.setValue(image, forKey: "equipmentImage")
+            newForm.setValue(report?.applicant, forKey: "applicantName")
+            newForm.setValue(report?.date, forKey: "fillDate")
+            newForm.setValue(report?.equipmentName, forKey: "equipmentName")
+            newForm.setValue(report?.equipmentSerialNumber, forKey: "equipmentSerialNumber")
+            newForm.setValue(report?.isRepaired, forKey: "isRepaired")
+            newForm.setValue(report?.propertyNumber, forKey: "propertyNumber")
+            newForm.setValue(report?.eventDescription, forKey: "eventDescription")
+            do {
+                try context.save()
+            } catch {
+                print("Failed saving")
+            }
+        } else {
+            //Edit form
+            let fetchRequest : NSFetchRequest<NSFetchRequestResult>
+            fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "DetailRepairReport")
+            do {
+                let results = try context.fetch(fetchRequest) as! [NSManagedObject]
+                if(results.count > 0){
+                    results[index].setValue(report?.name, forKey: "reportName")
+                    results[index].setValue(image, forKey: "equipmentImage")
+                    results[index].setValue(report?.applicant, forKey: "applicantName")
+                    results[index].setValue(report?.date, forKey: "fillDate")
+                    results[index].setValue(report?.equipmentName, forKey: "equipmentName")
+                    results[index].setValue(report?.equipmentSerialNumber, forKey: "equipmentSerialNumber")
+                    results[index].setValue(report?.isRepaired, forKey: "isRepaired")
+                    results[index].setValue(report?.propertyNumber, forKey: "propertyNumber")
+                    results[index].setValue(report?.eventDescription, forKey: "eventDescription")
+                }
+            } catch {
+                print("Failed fetch")
+            }
+            do {
+                try context.save()
+            } catch {
+                print("Failed saving")
+            }
         }
         dismissNavigationVC()
     }
@@ -76,12 +104,14 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
             imagePickerController.sourceType = .photoLibrary
             imagePickerController.delegate = self
             self.present(imagePickerController, animated: true, completion: nil)
+            self.updateSaveButtonState()
         }))
         alert.addAction(UIAlertAction(title: "Camera", style: .default , handler:{ (UIAlertAction) in
             if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)) {
                 imagePickerController.sourceType = .camera
                 imagePickerController.delegate = self
                 self.present(imagePickerController, animated: true, completion: nil)
+                self.updateSaveButtonState()
             }
         }))
         
@@ -89,7 +119,6 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
         }))
         
         self.present(alert, animated: true, completion: nil)
-        
     }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         // Dismiss the picker if the user canceled
@@ -136,9 +165,9 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
         let isPresentingInAddFormMode = presentingViewController is UINavigationController
         if !isPresentingInAddFormMode {
             let report = reports[index]
-            let image = report.value(forKey: "equipmentImage") as! NSData
+            let image = report.value(forKey: "equipmentImage") as! Data
             documentNameTextField.text = report.value(forKey: "reportName") as? String
-            equipmentImageView.image = UIImage(data: image as Data)
+            equipmentImageView.image = UIImage(data: image)
             applicantTextField.text = report.value(forKey: "applicantName") as? String
             fillDateTextField.text = report.value(forKey: "fillDate") as? String
             equipmentNameTextField.text = report.value(forKey: "equipmentName") as? String
@@ -218,7 +247,7 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
         view.addGestureRecognizer(UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:))))
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
-        
+
         loadDetailReport()
     }
 }

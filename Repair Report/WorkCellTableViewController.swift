@@ -80,14 +80,14 @@ class WorkCellTableViewController: UITableViewController, UITextFieldDelegate {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //TODO: Custom cell
         let report = reports[indexPath.row]
+        //MARK: CustomCell
         let cell = tableView.dequeueReusableCell(withIdentifier: "customReportCell", for: indexPath)
         if let reportCell = cell as? ReportTableViewCell {
             reportCell.reportName.text = report.value(forKey: "reportName") as? String
             reportCell.reportDate.text = report.value(forKey: "fillDate") as? String
-            let imageData = report.value(forKey: "equipmentImage") as! NSData
-            reportCell.reportImageView.image = UIImage(data: imageData as Data)
+            let imageData = report.value(forKey: "equipmentImage") as! Data
+            reportCell.reportImageView.image = UIImage(data: imageData)
         }
         return cell
     }
