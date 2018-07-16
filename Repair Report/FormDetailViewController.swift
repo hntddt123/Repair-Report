@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class FormDetailViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class FormDetailViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate {
     
     @IBOutlet weak var documentNameTextField: UITextField!
     @IBOutlet weak var equipmentImageView: UIImageView!
@@ -70,9 +70,26 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
         // Hide the keyboard when tap Image
         self.view.endEditing(true)
         let imagePickerController = UIImagePickerController()
-        imagePickerController.sourceType = .photoLibrary
-        imagePickerController.delegate = self
-        present(imagePickerController, animated: true, completion: nil)
+        
+        let alert = UIAlertController(title: "Choose Image", message: "Please select an option", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Photo", style: .default , handler:{ (UIAlertAction) in
+            imagePickerController.sourceType = .photoLibrary
+            imagePickerController.delegate = self
+            self.present(imagePickerController, animated: true, completion: nil)
+        }))
+        alert.addAction(UIAlertAction(title: "Camera", style: .default , handler:{ (UIAlertAction) in
+            if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)) {
+                imagePickerController.sourceType = .camera
+                imagePickerController.delegate = self
+                self.present(imagePickerController, animated: true, completion: nil)
+            }
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler:{ (UIAlertAction) in
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+        
     }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         // Dismiss the picker if the user canceled
@@ -86,7 +103,7 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
         equipmentImageView.image = selectedImage
         dismiss(animated: true, completion: nil)
     }
-
+    
     
     
     private func updateSaveButtonState() {
@@ -131,7 +148,7 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
             navigationItem.title = documentNameTextField.text
         }
     }
-
+    
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         // Disable the Save button while editing.
@@ -142,7 +159,7 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
         updateSaveButtonState()
         navigationItem.title = documentNameTextField.text
     }
-
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == documentNameTextField {
             documentNameTextField.resignFirstResponder()
@@ -165,7 +182,7 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
         }
         return false
     }
-
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -184,7 +201,7 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
     @objc func keyboardWillHide(notification:NSNotification){
         scrollViewTextField.contentInset = .zero
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //Set underline for the text

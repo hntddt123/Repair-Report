@@ -43,5 +43,7 @@
 	</array>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Allows add repair photo</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Allows take repair photo</string>
 </dict>
 </plist>
