@@ -37,12 +37,7 @@ class WorkCellTableViewController: UITableViewController, UITextFieldDelegate {
         return true
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    private func loadCellData() {
         //Fetch Core Data
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
@@ -53,6 +48,15 @@ class WorkCellTableViewController: UITableViewController, UITextFieldDelegate {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
         self.tableView.reloadData()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadCellData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -82,7 +86,8 @@ class WorkCellTableViewController: UITableViewController, UITextFieldDelegate {
         if let reportCell = cell as? ReportTableViewCell {
             reportCell.reportName.text = report.value(forKey: "reportName") as? String
             reportCell.reportDate.text = report.value(forKey: "fillDate") as? String
-            reportCell.reportImageView.image = UIImage(named: "HDMM.JPG")
+            let imageData = report.value(forKey: "equipmentImage") as! NSData
+            reportCell.reportImageView.image = UIImage(data: imageData as Data)
         }
         return cell
     }
@@ -102,19 +107,23 @@ class WorkCellTableViewController: UITableViewController, UITextFieldDelegate {
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
-
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "newFormSegue" {
-            //let DestinationViewController = segue.destination as! FormDetailViewController
-            //DestinationViewController.titleText = "Report Summary"
-//            if let cell = sender as? ReportTableViewCell, let indexPath = tableView.indexPath(for: cell) {
-//                //TODO: detail info
-//            }
+            
+        } else if segue.identifier == "cellDetailSegue" {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                let selectedRow = indexPath.row
+                if let destinationVC = segue.destination as? FormDetailViewController {
+                    destinationVC.reports = reports
+                    destinationVC.index = selectedRow
+                }
+            }
         }
     }
-    
-
 
 }
 

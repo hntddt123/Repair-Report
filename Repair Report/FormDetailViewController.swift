@@ -9,31 +9,25 @@
 import UIKit
 import CoreData
 
-class FormDetailViewController: UIViewController, UITextFieldDelegate {
+class FormDetailViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    @IBOutlet weak var documentName: UITextField!
-    @IBOutlet weak var equipmentImage: UIImageView!
-    @IBOutlet weak var applicant: UITextField!
-    @IBOutlet weak var fillDate: UITextField!
-    @IBOutlet weak var equipmentName: UITextField!
-    @IBOutlet weak var equipmentSerialNumber: UITextField!
-    @IBOutlet weak var propertyNumber: UITextField!
-    @IBOutlet weak var eventDescription: UITextView!
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var documentNameTextField: UITextField!
+    @IBOutlet weak var equipmentImageView: UIImageView!
+    @IBOutlet weak var applicantTextField: UITextField!
+    @IBOutlet weak var fillDateTextField: UITextField!
+    @IBOutlet weak var equipmentNameTextField: UITextField!
+    @IBOutlet weak var equipmentSerialNumberTextField: UITextField!
+    @IBOutlet weak var propertyNumberTextField: UITextField!
+    @IBOutlet weak var eventDescriptionTextField: UITextView!
+    @IBOutlet weak var scrollViewTextField: UIScrollView!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
+    var reports = [NSObject]()
+    var index = 0
+    
     @IBAction func cancel(_ sender: UIBarButtonItem) {
-        let isPresentingInAddFormMode = presentingViewController is UINavigationController
         // Depending on style of presentation (modal or push presentation), this view controller needs to be dismissed in two different ways.
-        if isPresentingInAddFormMode  {
-            dismiss(animated: true, completion: nil)
-        } else if let owningNavigationController = navigationController {
-            owningNavigationController.popViewController(animated: true)
-        } else {
-            fatalError("The AddFormController is not inside a navigation controller.")
-        }
-
-        
+        dismissNavigationVC()
     }
     
     @IBAction func save(_ sender: UIBarButtonItem) {
@@ -42,17 +36,21 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate {
         dateFormatter.dateFormat = "yyyy/MM/dd 'at' HH:mm"
         let date = Date()
         let dateString = dateFormatter.string(from: date)
+        
         //Append data to NSManagedObject array
-        let testImage = #imageLiteral(resourceName: "HDMM")
-        let report = RepairReport.init(name: documentName.text!, date: dateString, photo: testImage, applicant: applicant.text!, equipmentName: equipmentName.text!, equipmentSerialNumber: equipmentSerialNumber.text!, propertyNumber: propertyNumber.text!, eventDescription: eventDescription.text!)
+        
+        let report = RepairReport.init(name: documentNameTextField.text!, date: dateString, photo: equipmentImageView.image, applicant: applicantTextField.text!, equipmentName: equipmentNameTextField.text!, equipmentSerialNumber: equipmentSerialNumberTextField.text!, propertyNumber: propertyNumberTextField.text!, eventDescription: eventDescriptionTextField.text!)
+        
         //Save to Core Data
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "DetailRepairReport", in: context)
         let newForm = NSManagedObject(entity: entity!, insertInto: context)
         
+        //Save report to database
+        let image: NSData? = UIImageJPEGRepresentation(equipmentImageView.image!, 0.0) as NSData?
         newForm.setValue(report?.name, forKey: "reportName")
-        //newForm.setValue(report?.photo, forKey: "equipmentImage")
+        newForm.setValue(image, forKey: "equipmentImage")
         newForm.setValue(report?.applicant, forKey: "applicantName")
         newForm.setValue(report?.date, forKey: "fillDate")
         newForm.setValue(report?.equipmentName, forKey: "equipmentName")
@@ -65,6 +63,39 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate {
         } catch {
             print("Failed saving")
         }
+        dismissNavigationVC()
+    }
+    
+    @IBAction func selectImageFromPhotoLibrary(_ sender: UITapGestureRecognizer) {
+        // Hide the keyboard when tap Image
+        self.view.endEditing(true)
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.sourceType = .photoLibrary
+        imagePickerController.delegate = self
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        // Dismiss the picker if the user canceled
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else {
+            fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
+        }
+        equipmentImageView.image = selectedImage
+        dismiss(animated: true, completion: nil)
+    }
+
+    
+    
+    private func updateSaveButtonState() {
+        // Disable the Save button if the text field is empty.
+        let text = documentNameTextField.text ?? ""
+        saveButton.isEnabled = !text.isEmpty
+    }
+    
+    private func dismissNavigationVC() {
         let isPresentingInAddFormMode = presentingViewController is UINavigationController
         if isPresentingInAddFormMode  {
             dismiss(animated: true, completion: nil)
@@ -75,11 +106,32 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    private func updateSaveButtonState() {
-        // Disable the Save button if the text field is empty.
-        let text = documentName.text ?? ""
-        saveButton.isEnabled = !text.isEmpty
+    func loadDetailReport() {
+        //Fetch Core Data
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "DetailRepairReport")
+        do {
+            reports = try context.fetch(fetchRequest)
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+        let isPresentingInAddFormMode = presentingViewController is UINavigationController
+        if !isPresentingInAddFormMode {
+            let report = reports[index]
+            let image = report.value(forKey: "equipmentImage") as! NSData
+            documentNameTextField.text = report.value(forKey: "reportName") as? String
+            equipmentImageView.image = UIImage(data: image as Data)
+            applicantTextField.text = report.value(forKey: "applicantName") as? String
+            fillDateTextField.text = report.value(forKey: "fillDate") as? String
+            equipmentNameTextField.text = report.value(forKey: "equipmentName") as? String
+            equipmentSerialNumberTextField.text = report.value(forKey: "equipmentSerialNumber") as? String
+            propertyNumberTextField.text = report.value(forKey: "propertyNumber") as? String
+            eventDescriptionTextField.text = report.value(forKey: "eventDescription") as? String
+            navigationItem.title = documentNameTextField.text
+        }
     }
+
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         // Disable the Save button while editing.
@@ -88,29 +140,28 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         updateSaveButtonState()
-        navigationItem.title = documentName.text
+        navigationItem.title = documentNameTextField.text
     }
 
-
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == documentName {
-            documentName.resignFirstResponder()
-            applicant.becomeFirstResponder()
-        } else if textField == applicant {
-            applicant.resignFirstResponder()
-            fillDate.becomeFirstResponder()
-        } else if textField == fillDate {
+        if textField == documentNameTextField {
+            documentNameTextField.resignFirstResponder()
+            applicantTextField.becomeFirstResponder()
+        } else if textField == applicantTextField {
+            applicantTextField.resignFirstResponder()
+            fillDateTextField.becomeFirstResponder()
+        } else if textField == fillDateTextField {
             textField.resignFirstResponder()
-            equipmentName.becomeFirstResponder()
-        } else if textField == equipmentName {
+            equipmentNameTextField.becomeFirstResponder()
+        } else if textField == equipmentNameTextField {
             textField.resignFirstResponder()
-            equipmentSerialNumber.becomeFirstResponder()
-        } else if textField == equipmentSerialNumber {
+            equipmentSerialNumberTextField.becomeFirstResponder()
+        } else if textField == equipmentSerialNumberTextField {
             textField.resignFirstResponder()
-            propertyNumber.becomeFirstResponder()
-        } else if textField == propertyNumber {
+            propertyNumberTextField.becomeFirstResponder()
+        } else if textField == propertyNumberTextField {
             textField.resignFirstResponder()
-            eventDescription.becomeFirstResponder()
+            eventDescriptionTextField.becomeFirstResponder()
         }
         return false
     }
@@ -121,37 +172,37 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func keyboardWillShow(notification:NSNotification){
-        if self.eventDescription.isFirstResponder {
+        if self.eventDescriptionTextField.isFirstResponder {
             var userInfo = notification.userInfo!
             var keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
             keyboardFrame = self.view.convert(keyboardFrame, from: nil)
-            scrollView.contentInset.bottom = keyboardFrame.size.height
-            scrollView.contentOffset = CGPoint(x:0, y:keyboardFrame.size.height)
+            scrollViewTextField.contentInset.bottom = keyboardFrame.size.height
+            scrollViewTextField.contentOffset = CGPoint(x:0, y:keyboardFrame.size.height)
         }
     }
     
     @objc func keyboardWillHide(notification:NSNotification){
-        scrollView.contentOffset = .zero
-        scrollView.contentInset = .zero
+        scrollViewTextField.contentInset = .zero
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         //Set underline for the text
-        documentName.setBottomBorder()
-        applicant.setBottomBorder()
-        fillDate.setBottomBorder()
-        equipmentName.setBottomBorder()
-        equipmentSerialNumber.setBottomBorder()
-        propertyNumber.setBottomBorder()
-        eventDescription.layer.borderWidth = 1.0
-        equipmentImage.image = #imageLiteral(resourceName: "HDMMHNT")
+        documentNameTextField.setBottomBorder()
+        applicantTextField.setBottomBorder()
+        fillDateTextField.setBottomBorder()
+        equipmentNameTextField.setBottomBorder()
+        equipmentSerialNumberTextField.setBottomBorder()
+        propertyNumberTextField.setBottomBorder()
+        eventDescriptionTextField.layer.borderWidth = 1.0
+        
         
         //Resign keyboard when touch outside of text
         view.addGestureRecognizer(UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:))))
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
         
+        loadDetailReport()
     }
 }
 
@@ -166,3 +217,4 @@ extension UITextField {
         self.layer.shadowRadius = 0.0
     }
 }
+
