@@ -70,6 +70,17 @@ class WorkCellTableViewController: UITableViewController, UITextFieldDelegate {
         //TODO: Change to repaired and not repaired
         return 1
     }
+    
+    //TODO: Header decoration
+//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//
+//        return view
+//    }
+    
+//    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 30.0
+//    }
+
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return reports.count

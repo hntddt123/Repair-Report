@@ -19,7 +19,7 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
     @IBOutlet weak var equipmentSerialNumberTextField: UITextField!
     @IBOutlet weak var propertyNumberTextField: UITextField!
     @IBOutlet weak var eventDescriptionTextField: UITextView!
-    @IBOutlet weak var scrollViewTextField: UIScrollView!
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
     var reports = [NSObject]()
@@ -32,10 +32,7 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
     
     @IBAction func save(_ sender: UIBarButtonItem) {
         //Date format for new entry
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy/MM/dd 'at' HH:mm"
-        let date = Date()
-        let dateString = dateFormatter.string(from: date)
+        let dateString = getDate()
         
         //Append data to NSManagedObject array
         
@@ -152,6 +149,14 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
         }
     }
     
+    private func getDate() -> String {
+        //Date format for new entry
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy/MM/dd 'at' HH:mm"
+        let date = Date()
+        return dateFormatter.string(from: date)
+    }
+    
     func loadDetailReport() {
         //Fetch Core Data
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -222,13 +227,13 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
             var userInfo = notification.userInfo!
             var keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
             keyboardFrame = self.view.convert(keyboardFrame, from: nil)
-            scrollViewTextField.contentInset.bottom = keyboardFrame.size.height
-            scrollViewTextField.contentOffset = CGPoint(x:0, y:keyboardFrame.size.height)
+            scrollView.contentInset.bottom = keyboardFrame.size.height
+            scrollView.contentOffset = CGPoint(x:0, y:keyboardFrame.size.height)
         }
     }
     
     @objc func keyboardWillHide(notification:NSNotification){
-        scrollViewTextField.contentInset = .zero
+        scrollView.contentInset = .zero
     }
     
     override func viewDidLoad() {
@@ -241,13 +246,13 @@ class FormDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
         equipmentSerialNumberTextField.setBottomBorder()
         propertyNumberTextField.setBottomBorder()
         eventDescriptionTextField.layer.borderWidth = 1.0
-        
+        fillDateTextField.text = getDate()
         
         //Resign keyboard when touch outside of text
         view.addGestureRecognizer(UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:))))
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
-
+        
         loadDetailReport()
     }
 }
@@ -263,4 +268,5 @@ extension UITextField {
         self.layer.shadowRadius = 0.0
     }
 }
+
 
