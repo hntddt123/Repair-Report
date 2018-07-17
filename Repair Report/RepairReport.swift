@@ -9,8 +9,8 @@
 import UIKit
 import CoreData
 
-class RepairReport {
-    
+class RepairReport
+{    
     var isRepaired: Bool
     var name: String
     var date: String

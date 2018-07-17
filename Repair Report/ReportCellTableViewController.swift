@@ -1,5 +1,5 @@
 //
-//  WorkCellTableViewController.swift
+//  reportCellTableViewController.swift
 //  Repair Report
 //
 //  Created by Nientai Ho on 2018/6/21.
@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class WorkCellTableViewController: UITableViewController, UITextFieldDelegate {
+class ReportCellTableViewController: UITableViewController, UITextFieldDelegate {
    
     //Cellarray contains "Report x"
     //Cellarray date contains "2018/06/12 for right detail"
@@ -81,7 +81,6 @@ class WorkCellTableViewController: UITableViewController, UITextFieldDelegate {
 //        return 30.0
 //    }
 
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return reports.count
     }
@@ -103,7 +102,7 @@ class WorkCellTableViewController: UITableViewController, UITextFieldDelegate {
         return cell
     }
     
-    // Override to support editing the table view.
+    // Override to support deleting or editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -128,7 +127,7 @@ class WorkCellTableViewController: UITableViewController, UITextFieldDelegate {
         } else if segue.identifier == "cellDetailSegue" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 let selectedRow = indexPath.row
-                if let destinationVC = segue.destination as? FormDetailViewController {
+                if let destinationVC = segue.destination as? ReportDetailViewController {
                     destinationVC.reports = reports
                     destinationVC.index = selectedRow
                 }
